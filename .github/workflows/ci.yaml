@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    - uses: actions/checkout@v3
+    - name: Setup .NET Core SDK 7
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
