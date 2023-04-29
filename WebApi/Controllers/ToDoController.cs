@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebApi.Data;
 using WebApi.Models;
 
 namespace WebApi.Controllers
@@ -7,38 +10,20 @@ namespace WebApi.Controllers
     [ApiController]
     public class ToDoController: ControllerBase
     {
-        private readonly IEnumerable<ToDoDto> _toDos;
+        private readonly ToDoDataContext _toDoDataContext;
+        private readonly IMapper _mapper;
 
-        public ToDoController()
+        public ToDoController(ToDoDataContext toDoDataContext, IMapper mapper)
         {
-            _toDos = new List<ToDoDto>
-            {
-                new()
-                {
-                    Id = 1,
-                    Description = "Add persistence with database",
-                    State = ToDoState.Pending
-                },
-                new()
-                {
-                    Id = 2,
-                    Description = "Add API version",
-                    State = ToDoState.Pending
-                },
-                new()
-                {
-                    Id = 3,
-                    Description = "Create typed http client",
-                    State = ToDoState.Pending
-                }
-            };
+            _toDoDataContext = toDoDataContext;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        //public async Task<ActionResult<IEnumerable<ToDoDto>>> GetToDos()
-        public IEnumerable<ToDoDto> GetToDos()
+        public async Task<List<ToDoDto>> GetToDos()
         {
-            return _toDos;
+            var todos = await _toDoDataContext.Todo.ToListAsync();
+            return _mapper.Map<List<ToDoDto>>(todos);
         }
     }
 }
