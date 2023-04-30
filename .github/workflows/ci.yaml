@@ -13,6 +13,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/aspnet:7.0
+    env:
+      USERPROFILE: "./"
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
@@ -21,6 +23,10 @@ jobs:
         run: dotnet build --configuration Release --no-restore
       - name: Test
         run: dotnet test --no-restore --verbosity normal
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      # dotnet 7 has builtin docker target support using Microsoft.NET.Build.Containers package
       - name: Publish
         uses: actions/upload-artifact@v3
         with:
