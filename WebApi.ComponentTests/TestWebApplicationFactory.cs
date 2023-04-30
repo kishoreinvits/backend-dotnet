@@ -12,7 +12,6 @@
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using WebApi.Data;
 
 namespace WebApi.ComponentTests;
 
