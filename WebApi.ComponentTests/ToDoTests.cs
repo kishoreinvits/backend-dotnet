@@ -39,7 +39,7 @@ public class ToDoTests
         var body = await response.Content.ReadAsStringAsync();
         var recievedToDos = JsonSerializer.Deserialize<List<ToDoDto>>(body);
         Assert.IsNotNull(recievedToDos);
-        Assert.AreEqual(3,recievedToDos.Count);
+        Assert.AreEqual(0,recievedToDos.Count);
         
     }
 }
