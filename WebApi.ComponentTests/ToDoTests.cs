@@ -1,5 +1,7 @@
 using System.Net;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
+using WebApi.Models;
 
 namespace WebApi.ComponentTests;
 
@@ -34,5 +36,10 @@ public class ToDoTests
 
         // Assert
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        var body = await response.Content.ReadAsStringAsync();
+        var recievedToDos = JsonSerializer.Deserialize<List<ToDoDto>>(body);
+        Assert.IsNotNull(recievedToDos);
+        Assert.AreEqual(3,recievedToDos.Count);
+        
     }
 }
