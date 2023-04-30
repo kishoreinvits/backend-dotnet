@@ -12,9 +12,9 @@ namespace WebApi.Data
 
     public class ToDoRepository : ITodoRepository
     {
-        private readonly ToDoDataContext _dbContext;
+        private readonly ToDoDbContext _dbContext;
 
-        public ToDoRepository(ToDoDataContext dbContext)
+        public ToDoRepository(ToDoDbContext dbContext)
         {
             _dbContext = dbContext;
         }

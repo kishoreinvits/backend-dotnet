@@ -21,5 +21,7 @@ public class TestWebApplicationFactory<TStartup> : WebApplicationFactory<TStartu
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("Development");
+
+        // We can use in-memory database for tests
     }
 }
