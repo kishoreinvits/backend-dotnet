@@ -1,4 +1,4 @@
-﻿namespace WebApi.Models;
+﻿namespace WebApi.Data;
 
 public enum ToDoState
 {

@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using WebApi.Data;
+using WebApi.Mapper;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<ToDoDataContext>(options => options.UseInMemoryDatabase("ToDo"));
+builder.Services.AddAutoMapper(options => options.AddProfile(new ToDoMapperProfile()));
+builder.Services.AddScoped<ITodoRepository, ToDoRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

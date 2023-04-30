@@ -14,5 +14,5 @@ public struct ToDoDto
     public string Description { get; set; }
     [Required]
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public ToDoState State { get; set; }
+    public ToDoStateDto State { get; set; }
 }
