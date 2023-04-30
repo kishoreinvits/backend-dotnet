@@ -12,11 +12,15 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/dotnet/aspnet:7.0
-    env:
-      USERPROFILE: "./"
+    #container: mcr.microsoft.com/dotnet/aspnet:7.0
+    #env:
+    #  USERPROFILE: "./"
     steps:
       - uses: actions/checkout@v3
+      - name: Setup .NET Core SDK 7
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7
       - name: Install dependencies
         run: dotnet restore
       - name: Build
