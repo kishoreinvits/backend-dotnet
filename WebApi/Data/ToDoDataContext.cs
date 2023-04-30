@@ -7,7 +7,7 @@ namespace WebApi.Data
         // Install EF core, design(code-first) and sqlite packages
         // Install dotnet ef tool dotnet tool install --global dotnet-ef
 
-        public DbSet<Todo> Todo { get; set; }
+        public DbSet<ToDo> Todo { get; set; }
 
         public ToDoDataContext(DbContextOptions<ToDoDataContext> options): base(options)
         {
@@ -15,7 +15,7 @@ namespace WebApi.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Todo>()
+            modelBuilder.Entity<ToDo>()
                 .ToTable("Todo")
                 .HasData(new()
                     {

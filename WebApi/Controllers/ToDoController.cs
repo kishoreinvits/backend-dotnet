@@ -10,19 +10,19 @@ namespace WebApi.Controllers
     [ApiController]
     public class ToDoController: ControllerBase
     {
-        private readonly ToDoDataContext _toDoDataContext;
+        private readonly ITodoRepository _todoRepository;
         private readonly IMapper _mapper;
 
-        public ToDoController(ToDoDataContext toDoDataContext, IMapper mapper)
+        public ToDoController(ITodoRepository todoRepository, IMapper mapper)
         {
-            _toDoDataContext = toDoDataContext;
+            _todoRepository = todoRepository;
             _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<List<ToDoDto>> GetToDos()
         {
-            var todos = await _toDoDataContext.Todo.ToListAsync();
+            var todos = await _todoRepository.ListAsync();
             return _mapper.Map<List<ToDoDto>>(todos);
         }
     }

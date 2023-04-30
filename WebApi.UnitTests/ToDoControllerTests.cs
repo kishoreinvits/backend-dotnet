@@ -1,19 +1,44 @@
+using AutoMapper;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Moq;
+using WebApi.Controllers;
+using WebApi.Data;
+using WebApi.Mapper;
+
 namespace WebApi.UnitTests;
 
 [TestClass]
 public class ToDoControllerTests
 {
-    [TestMethod]
-    public void Get_Should_ReturnToDoList()
+    private static IMapper _mapper;
+
+    [ClassInitialize]
+    public static void ClassInitialize(TestContext testContext)
     {
-        //// Arrange
-        //var controller = new ToDoController();
+        var mapperConfiguration = new MapperConfiguration(options =>
+            options.AddProfile(new ToDoMapperProfile()));
+        _mapper = mapperConfiguration.CreateMapper();
+    }
 
-        //// Act
-        //var getToDosResponse = controller.GetToDos();
+    [TestMethod]
+    public async Task Get_Should_ReturnToDoList()
+    {
+        // Arrange
+        var mockRepository = new Mock<ITodoRepository>();
+        mockRepository.Setup(repo => repo.ListAsync(null,null))
+            .Returns(Task.FromResult(new List<ToDo>
+            {
+                new ToDo(),
+                new ToDo(),
+                new ToDo()
+            }));
+        var controller = new ToDoController(mockRepository.Object,_mapper);
 
-        //// Assert
-        //Assert.IsNotNull(getToDosResponse);
-        //Assert.AreNotEqual(0, getToDosResponse.Count());
+        // Act
+        var getToDosResponse = await controller.GetToDos();
+
+        // Assert
+        Assert.IsNotNull(getToDosResponse);
+        Assert.AreEqual(3, getToDosResponse.Count);
     }
 }

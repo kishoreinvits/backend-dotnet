@@ -3,7 +3,7 @@ using WebApi.Models;
 
 namespace WebApi.Data;
 
-public class Todo
+public class ToDo
 {
     [Required]
     public uint Id { get; set; }

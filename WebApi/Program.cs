@@ -13,6 +13,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ToDoDataContext>(options => options.UseInMemoryDatabase("ToDo"));
 builder.Services.AddAutoMapper(options => options.AddProfile(new ToDoMapperProfile()));
+builder.Services.AddScoped<ITodoRepository, ToDoRepository>();
 
 var app = builder.Build();
 

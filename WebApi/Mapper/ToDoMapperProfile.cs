@@ -8,8 +8,8 @@ public class ToDoMapperProfile : Profile
 {
     public ToDoMapperProfile()
     {
-        CreateMap<Todo, ToDoDto>();
-        CreateMap<ToDoDto, Todo>();
+        CreateMap<ToDo, ToDoDto>();
+        CreateMap<ToDoDto, ToDo>();
         CreateMap<ToDoState, ToDoStateDto>();
         CreateMap<ToDoStateDto, ToDoState>();
     }
