@@ -11,32 +11,10 @@ namespace WebApi.Data
 
         public ToDoDbContext(DbContextOptions<ToDoDbContext> options): base(options)
         {
-            Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ToDo>()
-                .ToTable("Todo")
-                .HasData(new()
-                    {
-                        Id = 1,
-                        Description = "Add persistence with database",
-                        State = ToDoState.Pending
-                    },
-                    new()
-                    {
-                        Id = 2,
-                        Description = "Add API version",
-                        State = ToDoState.Pending
-                    },
-                    new()
-                    {
-                        Id = 3,
-                        Description = "Create typed http client",
-                        State = ToDoState.Pending
-                    });
-
-
+            modelBuilder.Entity<ToDo>().ToTable("Todo");
         }
     }
 }
