@@ -2,14 +2,14 @@
 
 namespace WebApi.Data
 {
-    public class ToDoDataContext: DbContext
+    public class ToDoDbContext: DbContext
     {
         // Install EF core, design(code-first) and sqlite packages
         // Install dotnet ef tool dotnet tool install --global dotnet-ef
 
         public DbSet<ToDo> Todo { get; set; }
 
-        public ToDoDataContext(DbContextOptions<ToDoDataContext> options): base(options)
+        public ToDoDbContext(DbContextOptions<ToDoDbContext> options): base(options)
         {
             Database.EnsureCreated();
         }

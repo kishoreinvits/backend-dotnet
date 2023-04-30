@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<ToDoDataContext>(options => options.UseInMemoryDatabase("ToDo"));
+builder.Services.AddDbContext<ToDoDbContext>(options => options.UseInMemoryDatabase("ToDo"));
 builder.Services.AddAutoMapper(options => options.AddProfile(new ToDoMapperProfile()));
 builder.Services.AddScoped<ITodoRepository, ToDoRepository>();
 
