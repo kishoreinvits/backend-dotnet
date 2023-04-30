@@ -29,6 +29,8 @@ jobs:
         run: dotnet test --no-restore --verbosity normal
       # dotnet 7 has builtin docker target support using Microsoft.NET.Build.Containers package
       - name: Publish
+        run: dotnet publish ./WebApi/WebApi.csproj --no-restore -c Release -o ./dist
+      - name: Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build
