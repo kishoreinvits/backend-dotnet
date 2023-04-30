@@ -12,6 +12,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    #container: mcr.microsoft.com/dotnet/aspnet:7.0
+    #env:
+    #  USERPROFILE: "./"
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET Core SDK 7
@@ -24,3 +27,22 @@ jobs:
         run: dotnet build --configuration Release --no-restore
       - name: Test
         run: dotnet test --no-restore --verbosity normal
+      # dotnet 7 has builtin docker target support using Microsoft.NET.Build.Containers package
+      - name: Publish
+        run: dotnet publish ./WebApi/WebApi.csproj --no-restore -c Release -o ./dist
+      - name: Store Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: dist
+          if-no-files-found: error
+          retention-days: 7
+      - name: buildx setup
+        uses: docker/setup-buildx-action@v2
+      - name: container build
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: kishoreinvits/webapi:latest

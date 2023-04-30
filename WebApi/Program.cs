@@ -4,6 +4,20 @@ using WebApi.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure CORS
+var allowedCorsOrigins =
+    builder.Configuration.GetSection("AllowedCorsOrigins").Get<string[]>() 
+    ?? Array.Empty<string>();
+
+builder.Services.AddCors(options =>
+    {
+        options.AddDefaultPolicy(policyBuilder => 
+            policyBuilder
+                .WithOrigins(allowedCorsOrigins)
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+    });
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -19,6 +33,9 @@ builder.Services.AddAutoMapper(options => options.AddProfile(new ToDoMapperProfi
 builder.Services.AddScoped<ITodoRepository, ToDoRepository>();
 
 var app = builder.Build();
+
+// Use cors shall be called before adding any API
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
