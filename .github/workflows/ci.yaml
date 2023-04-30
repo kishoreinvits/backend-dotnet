@@ -27,10 +27,6 @@ jobs:
         run: dotnet build --configuration Release --no-restore
       - name: Test
         run: dotnet test --no-restore --verbosity normal
-  publish:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       # dotnet 7 has builtin docker target support using Microsoft.NET.Build.Containers package
       - name: Publish
         uses: actions/upload-artifact@v3
