@@ -12,15 +12,19 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: mcr.microsoft.com/dotnet/aspnet:7.0
     steps:
       - uses: actions/checkout@v3
-      - name: Setup .NET Core SDK 7
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 7
       - name: Install dependencies
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore
       - name: Test
         run: dotnet test --no-restore --verbosity normal
+      - name: Publish
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: dist
+          if-no-files-found: error
+          retention-days: 7

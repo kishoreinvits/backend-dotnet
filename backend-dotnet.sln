@@ -12,6 +12,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26FA7554-B03A-4CA5-80BF-D07F9AC035B2}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		build.ps1 = build.ps1
+		Dockerfile = Dockerfile
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
