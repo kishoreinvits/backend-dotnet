@@ -15,6 +15,9 @@ jobs:
     #container: mcr.microsoft.com/dotnet/aspnet:7.0
     #env:
     #  USERPROFILE: "./"
+    permissions:
+      security-events: write
+      actions: read
     steps:
       - uses: actions/checkout@v3
       # Initializes the CodeQL tools for scanning.
